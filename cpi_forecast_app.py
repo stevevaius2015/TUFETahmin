@@ -29,7 +29,16 @@ def forecast_cpi(cpi_data, forecast_period):
     forecast_index = pd.date_range(start=cpi_data.index[-1] + timedelta(days=1), periods=forecast_period, freq='M')
     forecast_series = pd.Series(forecast, index=forecast_index)
     
-    return forecast_series
+    # Calculate percent change from previous month
+    forecast_pct_change = forecast_series.pct_change() * 100
+    
+    # Combine forecast and percent change into a DataFrame
+    forecast_df = pd.DataFrame({
+        'Forecasted CPI': forecast_series,
+        'Percent Change': forecast_pct_change
+    })
+    
+    return forecast_df
 
 # Streamlit app
 def main():
@@ -60,7 +69,7 @@ def main():
     # Plot the forecast for the next 3 months
     plt.figure(figsize=(10, 6))
     plt.plot(cpi_data.index, cpi_data['CPI'], label='Historical CPI')
-    plt.plot(forecast_3_months.index, forecast_3_months, label='Forecasted CPI (3 Months)', color='red')
+    plt.plot(forecast_3_months.index, forecast_3_months['Forecasted CPI'], label='Forecasted CPI (3 Months)', color='red')
     plt.xlabel('Date')
     plt.ylabel('CPI')
     plt.title('CPI Forecast - Next 3 Months')
@@ -75,7 +84,7 @@ def main():
     # Plot the forecast for the next 12 months
     plt.figure(figsize=(10, 6))
     plt.plot(cpi_data.index, cpi_data['CPI'], label='Historical CPI')
-    plt.plot(forecast_12_months.index, forecast_12_months, label='Forecasted CPI (12 Months)', color='red')
+    plt.plot(forecast_12_months.index, forecast_12_months['Forecasted CPI'], label='Forecasted CPI (12 Months)', color='red')
     plt.xlabel('Date')
     plt.ylabel('CPI')
     plt.title('CPI Forecast - Next 12 Months')
