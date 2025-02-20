@@ -1,6 +1,6 @@
 # TUFEtahmin
 
-Bu proje, Türkiye'deki Tüketici Fiyat Endeksi (TÜFE) tahminlerini yapmak için geliştirilmiştir.
+Bu proje, KKTC'deki Tüketici Fiyat Endeksi (TÜFE) tahminlerini yapmak için geliştirilmiştir.
 
 ## Başlangıç
 
