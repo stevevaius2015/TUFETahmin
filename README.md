@@ -39,4 +39,4 @@ Bu proje MIT Lisansı ile lisanslanmıştır. Daha fazla bilgi için `LICENSE` d
 
 ## İletişim
 
-Sorularınız için lütfen [email@example.com](mailto:email@example.com) adresine e-posta gönderin.
+Sorularınız için lütfen [stevevaius@example.com](mailto:stevevaius@example.com) adresine e-posta gönderin.
