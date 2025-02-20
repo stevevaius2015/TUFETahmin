@@ -30,7 +30,9 @@ def forecast_cpi(cpi_data, forecast_period):
     forecast_series = pd.Series(forecast, index=forecast_index)
     
     # Calculate percent change from previous month
+    last_cpi_value = cpi_data.iloc[-1]
     forecast_pct_change = forecast_series.pct_change() * 100
+    forecast_pct_change.iloc[0] = ((forecast_series.iloc[0] - last_cpi_value) / last_cpi_value) * 100
     
     # Combine forecast and percent change into a DataFrame
     forecast_df = pd.DataFrame({
