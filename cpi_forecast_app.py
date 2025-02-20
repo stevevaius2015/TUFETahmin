@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from statsmodels.tsa.arima.model import ARIMA
-from pmdarima import auto_arima
 from datetime import datetime, timedelta
 
 # Function to load CPI data from a CSV file
@@ -21,12 +20,12 @@ def load_cpi_data():
 
 # Function to fit ARIMA model and forecast
 def forecast_cpi(cpi_data, forecast_period):
-    # Automatically select the best ARIMA model
-    model = auto_arima(cpi_data, seasonal=False, trace=True, error_action='ignore', suppress_warnings=True)
-    model_fit = model.fit(cpi_data)
+    # Fit an ARIMA model (manually set order)
+    model = ARIMA(cpi_data, order=(1, 1, 1))  # You can adjust (p, d, q) as needed
+    model_fit = model.fit()
     
     # Forecast the next `forecast_period` months
-    forecast = model_fit.predict(n_periods=forecast_period)
+    forecast = model_fit.forecast(steps=forecast_period)
     forecast_index = pd.date_range(start=cpi_data.index[-1] + timedelta(days=1), periods=forecast_period, freq='M')
     forecast_series = pd.Series(forecast, index=forecast_index)
     
